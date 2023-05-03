@@ -8,7 +8,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from "react-router-dom";
 
 
@@ -26,7 +25,7 @@ function App() {
 
   }
 
-  const toggleMode = ()=>{
+  const toggleMode = (cls)=>{
     if(mode==='light'){
       setMode('dark');
       document.body.style.backgroundColor = '#042743';
@@ -46,9 +45,9 @@ function App() {
       <div className="container my-3">
         <Routes>
           <Route exact path="/about"
-            element = {<About/>}/>
+            element = {<About  mode={mode}/>}/>
           <Route exact path="/"
-         element={ <TextForm showAlert = {showAlert} heading = "Enter the text to analyze below"   mode={mode}/>}
+         element={ <TextForm showAlert = {showAlert} heading = "Try Textutils-Word counter , Character counter"   mode={mode}/>}
          />
         </Routes>
         </div>
