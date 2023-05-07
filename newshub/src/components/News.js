@@ -29,10 +29,13 @@ export class News extends Component {
     document.title = `${this.capitalizeFirstLetter(this.props.category)} -NewsHub`  ;
   }
   async updateNews() {
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3e1c619e6fd14d989e4dd699275a138f&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    this.props.setProgress(10);
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
+    this.props.setProgress(30);
     let parsedData = await data.json();
+    this.props.setProgress(70);
     console.log(parsedData);
     this.setState({
       articles: parsedData.articles,
@@ -40,6 +43,7 @@ export class News extends Component {
       loading: false,
 
     });
+    this.props.setProgress(100);
   }
 
   async componentDidMount() {
@@ -60,7 +64,7 @@ export class News extends Component {
   };
   fetchMoreData =async() => {
     this.setState({page: this.state.page +1})
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3e1c619e6fd14d989e4dd699275a138f&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
    
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -85,8 +89,8 @@ export class News extends Component {
         >
           <div className="container">
         <div className="row">
-          { this.state.articles.map((element) => {
-              return <div className="col-md-4" key={element.url}>
+          { this.state.articles.map((element,index) => {
+              return <div className="col-md-4" key={index}>
                   <NewsItem
                     title={element.title?element.title: ""}
                     description={element.description ?element.description : ""}
