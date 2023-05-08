@@ -52,7 +52,7 @@ const authtoken = jwt.sign(data,JWT_SECRET);
 }
 });
 
-//authenticate a user: Post "/api/auth/loginr".no login required
+//authenticate a user: Post "/api/auth/login".no login required
 router.post('/login',[
   
         body('email','Enter a valid email').isEmail(),
