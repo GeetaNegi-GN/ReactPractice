@@ -12,5 +12,5 @@ app.use('/api/notes',require('./routes/notes'))
 
 
 app.listen(port, () => {
-  console.log(`app listening on port ${port}`)
+  console.log(`iNoteBook backend listening at http://localhost:${port}`)
 })
